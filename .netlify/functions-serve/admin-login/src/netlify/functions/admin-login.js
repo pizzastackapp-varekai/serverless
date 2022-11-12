@@ -30807,14 +30807,15 @@ var hashPassword = (password) => {
 
 // netlify/common/jwt.ts
 var import_jsonwebtoken = __toESM(require_jsonwebtoken());
+var JWT_SECRET = "2sJ63Qo39XeE0HHtTe0MfLmM2ojZGwhQ";
 var signToken = (id) => {
   return import_jsonwebtoken.default.sign({
-    "https://hasura.io/jwt/claims": {
+    HASURA_CLAIMS: {
       "x-hasura-allowed-roles": ["admin"],
       "x-hasura-default-role": "admin",
       "x-hasura-user-id": id
     }
-  }, "2sJ63Qo39XeE0HHtTe0MfLmM2ojZGwhQ");
+  }, JWT_SECRET);
 };
 
 // netlify/common/api.ts
@@ -30837,6 +30838,14 @@ var InsertAdminDocument = import_graphql_tag.default`
   }
 }
     `;
+var AdminGetMeDocument = import_graphql_tag.default`
+    query AdminGetMe($id: uuid!) {
+  admin_by_pk(id: $id) {
+    username
+    id
+  }
+}
+    `;
 var defaultWrapper = (action, _operationName, _operationType) => action();
 function getSdk(client, withWrapper = defaultWrapper) {
   return {
@@ -30845,6 +30854,9 @@ function getSdk(client, withWrapper = defaultWrapper) {
     },
     InsertAdmin(variables, requestHeaders) {
       return withWrapper((wrappedRequestHeaders) => client.request(InsertAdminDocument, variables, __spreadValues(__spreadValues({}, requestHeaders), wrappedRequestHeaders)), "InsertAdmin", "mutation");
+    },
+    AdminGetMe(variables, requestHeaders) {
+      return withWrapper((wrappedRequestHeaders) => client.request(AdminGetMeDocument, variables, __spreadValues(__spreadValues({}, requestHeaders), wrappedRequestHeaders)), "AdminGetMe", "query");
     }
   };
 }
@@ -30865,12 +30877,10 @@ var handler = async (event, context) => {
   }, {
     "x-hasura-admin-secret": "myadminsecretkey"
   });
-  console.log("data", data);
   if (data.admin.length === 0) {
     return invalidUserOrPassword;
   }
   const hashedPassword = hashPassword(input.password);
-  console.log("hashedPassword", hashedPassword);
   if (hashedPassword !== data.admin[0].password) {
     return invalidUserOrPassword;
   }

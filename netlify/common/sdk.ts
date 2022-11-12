@@ -17,6 +17,12 @@ export type Scalars = {
   uuid: any;
 };
 
+export type AdminGetMeOutput = {
+  __typename?: 'AdminGetMeOutput';
+  id: Scalars['String'];
+  username: Scalars['String'];
+};
+
 export type AdminLoginInput = {
   password: Scalars['String'];
   username: Scalars['String'];
@@ -574,6 +580,7 @@ export type Query_Root = {
   __typename?: 'query_root';
   /** fetch data from the table: "admin" */
   admin: Array<Admin>;
+  adminGetMe?: Maybe<AdminGetMeOutput>;
   /** Login admin */
   adminLogin?: Maybe<AdminLoginOutput>;
   /** fetch aggregated fields from the table: "admin" */
@@ -729,6 +736,13 @@ export type InsertAdminMutationVariables = Exact<{
 
 export type InsertAdminMutation = { __typename?: 'mutation_root', insert_admin_one?: { __typename?: 'admin', id: any } | null };
 
+export type AdminGetMeQueryVariables = Exact<{
+  id: Scalars['uuid'];
+}>;
+
+
+export type AdminGetMeQuery = { __typename?: 'query_root', admin_by_pk?: { __typename?: 'admin', username: string, id: any } | null };
+
 
 export const GetAdminByUsernameDocument = gql`
     query GetAdminByUsername($username: String = "") {
@@ -741,6 +755,14 @@ export const GetAdminByUsernameDocument = gql`
 export const InsertAdminDocument = gql`
     mutation InsertAdmin($password: String, $username: String) {
   insert_admin_one(object: {username: $username, password: $password}) {
+    id
+  }
+}
+    `;
+export const AdminGetMeDocument = gql`
+    query AdminGetMe($id: uuid!) {
+  admin_by_pk(id: $id) {
+    username
     id
   }
 }
@@ -758,6 +780,9 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     },
     InsertAdmin(variables?: InsertAdminMutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<InsertAdminMutation> {
       return withWrapper((wrappedRequestHeaders) => client.request<InsertAdminMutation>(InsertAdminDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'InsertAdmin', 'mutation');
+    },
+    AdminGetMe(variables: AdminGetMeQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<AdminGetMeQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<AdminGetMeQuery>(AdminGetMeDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'AdminGetMe', 'query');
     }
   };
 }

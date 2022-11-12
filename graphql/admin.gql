@@ -10,3 +10,10 @@ mutation InsertAdmin($password: String, $username: String) {
 		id
 	}
 }
+
+query AdminGetMe($id: uuid!) {
+	admin_by_pk(id: $id) {
+		username
+		id
+	}
+}

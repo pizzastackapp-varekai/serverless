@@ -22,12 +22,12 @@ const handler: Handler = async (event, context) => {
 			'x-hasura-admin-secret': 'myadminsecretkey',
 		}
 	)
-	console.log('data', data)
+
 	if (data.admin.length === 0) {
 		return invalidUserOrPassword
 	}
 	const hashedPassword = hashPassword(input.password)
-	console.log('hashedPassword', hashedPassword)
+
 	if (hashedPassword !== data.admin[0].password) {
 		return invalidUserOrPassword
 	}
