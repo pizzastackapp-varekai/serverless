@@ -30798,8 +30798,24 @@ __export(admin_register_exports, {
   handler: () => handler
 });
 module.exports = __toCommonJS(admin_register_exports);
-var import_jsonwebtoken = __toESM(require_jsonwebtoken());
+
+// netlify/common/password.ts
 var import_crypto = __toESM(require("crypto"));
+var hashPassword = (password) => {
+  return import_crypto.default.pbkdf2Sync(password, "mygreatsaltsecret", 1e3, 64, "sha512").toString("hex");
+};
+
+// netlify/common/jwt.ts
+var import_jsonwebtoken = __toESM(require_jsonwebtoken());
+var signToken = (id) => {
+  return import_jsonwebtoken.default.sign({
+    "https://hasura.io/jwt/claims": {
+      "x-hasura-allowed-roles": ["admin"],
+      "x-hasura-default-role": "admin",
+      "x-hasura-user-id": id
+    }
+  }, "2sJ63Qo39XeE0HHtTe0MfLmM2ojZGwhQ");
+};
 
 // netlify/common/api.ts
 var import_graphql_request = __toESM(require_dist());
@@ -30844,25 +30860,19 @@ var handler = async (event, context) => {
     return {
       statusCode: 403,
       body: JSON.stringify({
-        message: "x-pizzastack-secret-key is missing or value is invalid"
+        message: "'x-pizzastack-secret-key' is missing or value is invalid"
       })
     };
   }
   const input = JSON.parse(body).input.admin;
-  const password = import_crypto.default.pbkdf2Sync(input.password, "myadminsecretkey", 1e3, 64, "sha512").toString("hex");
+  const password = hashPassword(input.password);
   const data = await api.InsertAdmin({
     username: input.username,
     password
   }, {
-    "x-hasura-admin-secret": "mypizzastacksecretkey"
+    "x-hasura-admin-secret": "myadminsecretkey"
   });
-  const accessToken = import_jsonwebtoken.default.sign({
-    "https://hasura.io/jwt/claims": {
-      "x-hasura-allowed-roles": ["admin"],
-      "x-hasura-default-role": "admin",
-      "x-hasura-user-id": (_a = data.insert_admin_one) == null ? void 0 : _a.id
-    }
-  }, "myadminsecretkey");
+  const accessToken = signToken((_a = data.insert_admin_one) == null ? void 0 : _a.id);
   return {
     statusCode: 200,
     body: JSON.stringify({ accessToken })

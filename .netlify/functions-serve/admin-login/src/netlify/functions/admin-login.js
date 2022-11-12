@@ -30802,7 +30802,7 @@ module.exports = __toCommonJS(admin_login_exports);
 // netlify/common/password.ts
 var import_crypto = __toESM(require("crypto"));
 var hashPassword = (password) => {
-  return import_crypto.default.pbkdf2Sync(password, "myadminsecretkey", 1e3, 64, "sha512").toString("hex");
+  return import_crypto.default.pbkdf2Sync(password, "mygreatsaltsecret", 1e3, 64, "sha512").toString("hex");
 };
 
 // netlify/common/jwt.ts
@@ -30814,7 +30814,7 @@ var signToken = (id) => {
       "x-hasura-default-role": "admin",
       "x-hasura-user-id": id
     }
-  }, "myadminsecretkey");
+  }, "2sJ63Qo39XeE0HHtTe0MfLmM2ojZGwhQ");
 };
 
 // netlify/common/api.ts
@@ -30865,6 +30865,7 @@ var handler = async (event, context) => {
   }, {
     "x-hasura-admin-secret": "myadminsecretkey"
   });
+  console.log("data", data);
   if (data.admin.length === 0) {
     return invalidUserOrPassword;
   }

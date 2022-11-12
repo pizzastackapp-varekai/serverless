@@ -22,6 +22,7 @@ const handler: Handler = async (event, context) => {
 			'x-hasura-admin-secret': 'myadminsecretkey',
 		}
 	)
+	console.log('data', data)
 	if (data.admin.length === 0) {
 		return invalidUserOrPassword
 	}

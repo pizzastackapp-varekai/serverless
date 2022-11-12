@@ -9,6 +9,6 @@ export const signToken = (id: string) => {
 				'x-hasura-user-id': id,
 			},
 		},
-		'myadminsecretkey'
+		'2sJ63Qo39XeE0HHtTe0MfLmM2ojZGwhQ'
 	)
 }
