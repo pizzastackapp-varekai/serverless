@@ -1,32 +1,21 @@
 import { Handler } from '@netlify/functions'
-import { api } from '../common/api'
-import { getTokenData, HASURA_CLAIMS, HASURA_ID } from '../common/jwt'
-
+import { getAdminFromHeaders } from '../common/getAdminFromHeaders'
+import { GetAdminByIdQuery } from '../common/sdk'
 const handler: Handler = async (event, context) => {
-	const { body, headers } = event
-	const authHeader = headers['authorization']
-	if (!authHeader) {
-		return {
-			statusCode: 403,
-			message: 'Forbidden',
-		}
-	}
-	const [_, authToken] = authHeader.split(' ')
-	const adminObj = getTokenData(authToken)
-	const adminId = adminObj[HASURA_CLAIMS][HASURA_ID]
+	const { headers } = event
 
-	const data = await api.AdminGetMe(
-		{ id: adminId },
-		{
-			'x-hasura-admin-secret': 'myadminsecretkey',
-		}
-	)
+	let admin: GetAdminByIdQuery
+	try {
+		admin = await getAdminFromHeaders(headers)
+	} catch (error) {
+		return JSON.parse(error.message)
+	}
 
 	return {
 		statusCode: 200,
 		body: JSON.stringify({
-			username: data.admin_by_pk?.username,
-			id: data.admin_by_pk?.id,
+			username: admin.admin_by_pk?.username,
+			id: admin.admin_by_pk?.id,
 		}),
 	}
 }

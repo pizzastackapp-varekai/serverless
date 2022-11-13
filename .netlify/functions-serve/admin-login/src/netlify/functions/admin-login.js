@@ -30839,8 +30839,8 @@ var InsertAdminDocument = import_graphql_tag.default`
   }
 }
     `;
-var AdminGetMeDocument = import_graphql_tag.default`
-    query AdminGetMe($id: uuid!) {
+var GetAdminByIdDocument = import_graphql_tag.default`
+    query GetAdminById($id: uuid!) {
   admin_by_pk(id: $id) {
     username
     id
@@ -30856,8 +30856,8 @@ function getSdk(client, withWrapper = defaultWrapper) {
     InsertAdmin(variables, requestHeaders) {
       return withWrapper((wrappedRequestHeaders) => client.request(InsertAdminDocument, variables, __spreadValues(__spreadValues({}, requestHeaders), wrappedRequestHeaders)), "InsertAdmin", "mutation");
     },
-    AdminGetMe(variables, requestHeaders) {
-      return withWrapper((wrappedRequestHeaders) => client.request(AdminGetMeDocument, variables, __spreadValues(__spreadValues({}, requestHeaders), wrappedRequestHeaders)), "AdminGetMe", "query");
+    GetAdminById(variables, requestHeaders) {
+      return withWrapper((wrappedRequestHeaders) => client.request(GetAdminByIdDocument, variables, __spreadValues(__spreadValues({}, requestHeaders), wrappedRequestHeaders)), "GetAdminById", "query");
     }
   };
 }
