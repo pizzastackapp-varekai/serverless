@@ -8,7 +8,7 @@ export const HASURA_ID = 'x-hasura-user-id'
 export const signToken = (id: string) => {
 	return jwt.sign(
 		{
-			HASURA_CLAIMS: {
+			[HASURA_CLAIMS]: {
 				'x-hasura-allowed-roles': ['admin'],
 				'x-hasura-default-role': 'admin',
 				'x-hasura-user-id': id,

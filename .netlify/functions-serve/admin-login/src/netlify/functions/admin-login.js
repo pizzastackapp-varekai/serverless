@@ -30808,9 +30808,10 @@ var hashPassword = (password) => {
 // netlify/common/jwt.ts
 var import_jsonwebtoken = __toESM(require_jsonwebtoken());
 var JWT_SECRET = "2sJ63Qo39XeE0HHtTe0MfLmM2ojZGwhQ";
+var HASURA_CLAIMS = "https://hasura.io/jwt/claims";
 var signToken = (id) => {
   return import_jsonwebtoken.default.sign({
-    HASURA_CLAIMS: {
+    [HASURA_CLAIMS]: {
       "x-hasura-allowed-roles": ["admin"],
       "x-hasura-default-role": "admin",
       "x-hasura-user-id": id
