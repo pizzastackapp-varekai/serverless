@@ -20161,22 +20161,22 @@ var require_definition = __commonJS({
       return typeof thunk === "function" ? thunk() : thunk;
     }
     var GraphQLScalarType = class {
-      constructor(config) {
+      constructor(config2) {
         var _config$parseValue, _config$serialize, _config$parseLiteral, _config$extensionASTN;
-        const parseValue = (_config$parseValue = config.parseValue) !== null && _config$parseValue !== void 0 ? _config$parseValue : _identityFunc.identityFunc;
-        this.name = (0, _assertName.assertName)(config.name);
-        this.description = config.description;
-        this.specifiedByURL = config.specifiedByURL;
-        this.serialize = (_config$serialize = config.serialize) !== null && _config$serialize !== void 0 ? _config$serialize : _identityFunc.identityFunc;
+        const parseValue = (_config$parseValue = config2.parseValue) !== null && _config$parseValue !== void 0 ? _config$parseValue : _identityFunc.identityFunc;
+        this.name = (0, _assertName.assertName)(config2.name);
+        this.description = config2.description;
+        this.specifiedByURL = config2.specifiedByURL;
+        this.serialize = (_config$serialize = config2.serialize) !== null && _config$serialize !== void 0 ? _config$serialize : _identityFunc.identityFunc;
         this.parseValue = parseValue;
-        this.parseLiteral = (_config$parseLiteral = config.parseLiteral) !== null && _config$parseLiteral !== void 0 ? _config$parseLiteral : (node, variables) => parseValue((0, _valueFromASTUntyped.valueFromASTUntyped)(node, variables));
-        this.extensions = (0, _toObjMap.toObjMap)(config.extensions);
-        this.astNode = config.astNode;
-        this.extensionASTNodes = (_config$extensionASTN = config.extensionASTNodes) !== null && _config$extensionASTN !== void 0 ? _config$extensionASTN : [];
-        config.specifiedByURL == null || typeof config.specifiedByURL === "string" || (0, _devAssert.devAssert)(false, `${this.name} must provide "specifiedByURL" as a string, but got: ${(0, _inspect.inspect)(config.specifiedByURL)}.`);
-        config.serialize == null || typeof config.serialize === "function" || (0, _devAssert.devAssert)(false, `${this.name} must provide "serialize" function. If this custom Scalar is also used as an input type, ensure "parseValue" and "parseLiteral" functions are also provided.`);
-        if (config.parseLiteral) {
-          typeof config.parseValue === "function" && typeof config.parseLiteral === "function" || (0, _devAssert.devAssert)(false, `${this.name} must provide both "parseValue" and "parseLiteral" functions.`);
+        this.parseLiteral = (_config$parseLiteral = config2.parseLiteral) !== null && _config$parseLiteral !== void 0 ? _config$parseLiteral : (node, variables) => parseValue((0, _valueFromASTUntyped.valueFromASTUntyped)(node, variables));
+        this.extensions = (0, _toObjMap.toObjMap)(config2.extensions);
+        this.astNode = config2.astNode;
+        this.extensionASTNodes = (_config$extensionASTN = config2.extensionASTNodes) !== null && _config$extensionASTN !== void 0 ? _config$extensionASTN : [];
+        config2.specifiedByURL == null || typeof config2.specifiedByURL === "string" || (0, _devAssert.devAssert)(false, `${this.name} must provide "specifiedByURL" as a string, but got: ${(0, _inspect.inspect)(config2.specifiedByURL)}.`);
+        config2.serialize == null || typeof config2.serialize === "function" || (0, _devAssert.devAssert)(false, `${this.name} must provide "serialize" function. If this custom Scalar is also used as an input type, ensure "parseValue" and "parseLiteral" functions are also provided.`);
+        if (config2.parseLiteral) {
+          typeof config2.parseValue === "function" && typeof config2.parseLiteral === "function" || (0, _devAssert.devAssert)(false, `${this.name} must provide both "parseValue" and "parseLiteral" functions.`);
         }
       }
       get [Symbol.toStringTag]() {
@@ -20204,17 +20204,17 @@ var require_definition = __commonJS({
     };
     exports.GraphQLScalarType = GraphQLScalarType;
     var GraphQLObjectType = class {
-      constructor(config) {
+      constructor(config2) {
         var _config$extensionASTN2;
-        this.name = (0, _assertName.assertName)(config.name);
-        this.description = config.description;
-        this.isTypeOf = config.isTypeOf;
-        this.extensions = (0, _toObjMap.toObjMap)(config.extensions);
-        this.astNode = config.astNode;
-        this.extensionASTNodes = (_config$extensionASTN2 = config.extensionASTNodes) !== null && _config$extensionASTN2 !== void 0 ? _config$extensionASTN2 : [];
-        this._fields = () => defineFieldMap(config);
-        this._interfaces = () => defineInterfaces(config);
-        config.isTypeOf == null || typeof config.isTypeOf === "function" || (0, _devAssert.devAssert)(false, `${this.name} must provide "isTypeOf" as a function, but got: ${(0, _inspect.inspect)(config.isTypeOf)}.`);
+        this.name = (0, _assertName.assertName)(config2.name);
+        this.description = config2.description;
+        this.isTypeOf = config2.isTypeOf;
+        this.extensions = (0, _toObjMap.toObjMap)(config2.extensions);
+        this.astNode = config2.astNode;
+        this.extensionASTNodes = (_config$extensionASTN2 = config2.extensionASTNodes) !== null && _config$extensionASTN2 !== void 0 ? _config$extensionASTN2 : [];
+        this._fields = () => defineFieldMap(config2);
+        this._interfaces = () => defineInterfaces(config2);
+        config2.isTypeOf == null || typeof config2.isTypeOf === "function" || (0, _devAssert.devAssert)(false, `${this.name} must provide "isTypeOf" as a function, but got: ${(0, _inspect.inspect)(config2.isTypeOf)}.`);
       }
       get [Symbol.toStringTag]() {
         return "GraphQLObjectType";
@@ -20251,21 +20251,21 @@ var require_definition = __commonJS({
       }
     };
     exports.GraphQLObjectType = GraphQLObjectType;
-    function defineInterfaces(config) {
+    function defineInterfaces(config2) {
       var _config$interfaces;
-      const interfaces = resolveReadonlyArrayThunk((_config$interfaces = config.interfaces) !== null && _config$interfaces !== void 0 ? _config$interfaces : []);
-      Array.isArray(interfaces) || (0, _devAssert.devAssert)(false, `${config.name} interfaces must be an Array or a function which returns an Array.`);
+      const interfaces = resolveReadonlyArrayThunk((_config$interfaces = config2.interfaces) !== null && _config$interfaces !== void 0 ? _config$interfaces : []);
+      Array.isArray(interfaces) || (0, _devAssert.devAssert)(false, `${config2.name} interfaces must be an Array or a function which returns an Array.`);
       return interfaces;
     }
-    function defineFieldMap(config) {
-      const fieldMap = resolveObjMapThunk(config.fields);
-      isPlainObj(fieldMap) || (0, _devAssert.devAssert)(false, `${config.name} fields must be an object with field names as keys or a function which returns such an object.`);
+    function defineFieldMap(config2) {
+      const fieldMap = resolveObjMapThunk(config2.fields);
+      isPlainObj(fieldMap) || (0, _devAssert.devAssert)(false, `${config2.name} fields must be an object with field names as keys or a function which returns such an object.`);
       return (0, _mapValue.mapValue)(fieldMap, (fieldConfig, fieldName) => {
         var _fieldConfig$args;
-        isPlainObj(fieldConfig) || (0, _devAssert.devAssert)(false, `${config.name}.${fieldName} field config must be an object.`);
-        fieldConfig.resolve == null || typeof fieldConfig.resolve === "function" || (0, _devAssert.devAssert)(false, `${config.name}.${fieldName} field resolver must be a function if provided, but got: ${(0, _inspect.inspect)(fieldConfig.resolve)}.`);
+        isPlainObj(fieldConfig) || (0, _devAssert.devAssert)(false, `${config2.name}.${fieldName} field config must be an object.`);
+        fieldConfig.resolve == null || typeof fieldConfig.resolve === "function" || (0, _devAssert.devAssert)(false, `${config2.name}.${fieldName} field resolver must be a function if provided, but got: ${(0, _inspect.inspect)(fieldConfig.resolve)}.`);
         const argsConfig = (_fieldConfig$args = fieldConfig.args) !== null && _fieldConfig$args !== void 0 ? _fieldConfig$args : {};
-        isPlainObj(argsConfig) || (0, _devAssert.devAssert)(false, `${config.name}.${fieldName} args must be an object with argument names as keys.`);
+        isPlainObj(argsConfig) || (0, _devAssert.devAssert)(false, `${config2.name}.${fieldName} args must be an object with argument names as keys.`);
         return {
           name: (0, _assertName.assertName)(fieldName),
           description: fieldConfig.description,
@@ -20279,8 +20279,8 @@ var require_definition = __commonJS({
         };
       });
     }
-    function defineArguments(config) {
-      return Object.entries(config).map(([argName, argConfig]) => ({
+    function defineArguments(config2) {
+      return Object.entries(config2).map(([argName, argConfig]) => ({
         name: (0, _assertName.assertName)(argName),
         description: argConfig.description,
         type: argConfig.type,
@@ -20319,17 +20319,17 @@ var require_definition = __commonJS({
       return isNonNullType(arg.type) && arg.defaultValue === void 0;
     }
     var GraphQLInterfaceType = class {
-      constructor(config) {
+      constructor(config2) {
         var _config$extensionASTN3;
-        this.name = (0, _assertName.assertName)(config.name);
-        this.description = config.description;
-        this.resolveType = config.resolveType;
-        this.extensions = (0, _toObjMap.toObjMap)(config.extensions);
-        this.astNode = config.astNode;
-        this.extensionASTNodes = (_config$extensionASTN3 = config.extensionASTNodes) !== null && _config$extensionASTN3 !== void 0 ? _config$extensionASTN3 : [];
-        this._fields = defineFieldMap.bind(void 0, config);
-        this._interfaces = defineInterfaces.bind(void 0, config);
-        config.resolveType == null || typeof config.resolveType === "function" || (0, _devAssert.devAssert)(false, `${this.name} must provide "resolveType" as a function, but got: ${(0, _inspect.inspect)(config.resolveType)}.`);
+        this.name = (0, _assertName.assertName)(config2.name);
+        this.description = config2.description;
+        this.resolveType = config2.resolveType;
+        this.extensions = (0, _toObjMap.toObjMap)(config2.extensions);
+        this.astNode = config2.astNode;
+        this.extensionASTNodes = (_config$extensionASTN3 = config2.extensionASTNodes) !== null && _config$extensionASTN3 !== void 0 ? _config$extensionASTN3 : [];
+        this._fields = defineFieldMap.bind(void 0, config2);
+        this._interfaces = defineInterfaces.bind(void 0, config2);
+        config2.resolveType == null || typeof config2.resolveType === "function" || (0, _devAssert.devAssert)(false, `${this.name} must provide "resolveType" as a function, but got: ${(0, _inspect.inspect)(config2.resolveType)}.`);
       }
       get [Symbol.toStringTag]() {
         return "GraphQLInterfaceType";
@@ -20367,16 +20367,16 @@ var require_definition = __commonJS({
     };
     exports.GraphQLInterfaceType = GraphQLInterfaceType;
     var GraphQLUnionType = class {
-      constructor(config) {
+      constructor(config2) {
         var _config$extensionASTN4;
-        this.name = (0, _assertName.assertName)(config.name);
-        this.description = config.description;
-        this.resolveType = config.resolveType;
-        this.extensions = (0, _toObjMap.toObjMap)(config.extensions);
-        this.astNode = config.astNode;
-        this.extensionASTNodes = (_config$extensionASTN4 = config.extensionASTNodes) !== null && _config$extensionASTN4 !== void 0 ? _config$extensionASTN4 : [];
-        this._types = defineTypes.bind(void 0, config);
-        config.resolveType == null || typeof config.resolveType === "function" || (0, _devAssert.devAssert)(false, `${this.name} must provide "resolveType" as a function, but got: ${(0, _inspect.inspect)(config.resolveType)}.`);
+        this.name = (0, _assertName.assertName)(config2.name);
+        this.description = config2.description;
+        this.resolveType = config2.resolveType;
+        this.extensions = (0, _toObjMap.toObjMap)(config2.extensions);
+        this.astNode = config2.astNode;
+        this.extensionASTNodes = (_config$extensionASTN4 = config2.extensionASTNodes) !== null && _config$extensionASTN4 !== void 0 ? _config$extensionASTN4 : [];
+        this._types = defineTypes.bind(void 0, config2);
+        config2.resolveType == null || typeof config2.resolveType === "function" || (0, _devAssert.devAssert)(false, `${this.name} must provide "resolveType" as a function, but got: ${(0, _inspect.inspect)(config2.resolveType)}.`);
       }
       get [Symbol.toStringTag]() {
         return "GraphQLUnionType";
@@ -20406,20 +20406,20 @@ var require_definition = __commonJS({
       }
     };
     exports.GraphQLUnionType = GraphQLUnionType;
-    function defineTypes(config) {
-      const types = resolveReadonlyArrayThunk(config.types);
-      Array.isArray(types) || (0, _devAssert.devAssert)(false, `Must provide Array of types or a function which returns such an array for Union ${config.name}.`);
+    function defineTypes(config2) {
+      const types = resolveReadonlyArrayThunk(config2.types);
+      Array.isArray(types) || (0, _devAssert.devAssert)(false, `Must provide Array of types or a function which returns such an array for Union ${config2.name}.`);
       return types;
     }
     var GraphQLEnumType = class {
-      constructor(config) {
+      constructor(config2) {
         var _config$extensionASTN5;
-        this.name = (0, _assertName.assertName)(config.name);
-        this.description = config.description;
-        this.extensions = (0, _toObjMap.toObjMap)(config.extensions);
-        this.astNode = config.astNode;
-        this.extensionASTNodes = (_config$extensionASTN5 = config.extensionASTNodes) !== null && _config$extensionASTN5 !== void 0 ? _config$extensionASTN5 : [];
-        this._values = defineEnumValues(this.name, config.values);
+        this.name = (0, _assertName.assertName)(config2.name);
+        this.description = config2.description;
+        this.extensions = (0, _toObjMap.toObjMap)(config2.extensions);
+        this.astNode = config2.astNode;
+        this.extensionASTNodes = (_config$extensionASTN5 = config2.extensionASTNodes) !== null && _config$extensionASTN5 !== void 0 ? _config$extensionASTN5 : [];
+        this._values = defineEnumValues(this.name, config2.values);
         this._valueLookup = new Map(this._values.map((enumValue) => [enumValue.value, enumValue]));
         this._nameLookup = (0, _keyMap.keyMap)(this._values, (value) => value.name);
       }
@@ -20511,14 +20511,14 @@ var require_definition = __commonJS({
       });
     }
     var GraphQLInputObjectType = class {
-      constructor(config) {
+      constructor(config2) {
         var _config$extensionASTN6;
-        this.name = (0, _assertName.assertName)(config.name);
-        this.description = config.description;
-        this.extensions = (0, _toObjMap.toObjMap)(config.extensions);
-        this.astNode = config.astNode;
-        this.extensionASTNodes = (_config$extensionASTN6 = config.extensionASTNodes) !== null && _config$extensionASTN6 !== void 0 ? _config$extensionASTN6 : [];
-        this._fields = defineInputFieldMap.bind(void 0, config);
+        this.name = (0, _assertName.assertName)(config2.name);
+        this.description = config2.description;
+        this.extensions = (0, _toObjMap.toObjMap)(config2.extensions);
+        this.astNode = config2.astNode;
+        this.extensionASTNodes = (_config$extensionASTN6 = config2.extensionASTNodes) !== null && _config$extensionASTN6 !== void 0 ? _config$extensionASTN6 : [];
+        this._fields = defineInputFieldMap.bind(void 0, config2);
       }
       get [Symbol.toStringTag]() {
         return "GraphQLInputObjectType";
@@ -20555,11 +20555,11 @@ var require_definition = __commonJS({
       }
     };
     exports.GraphQLInputObjectType = GraphQLInputObjectType;
-    function defineInputFieldMap(config) {
-      const fieldMap = resolveObjMapThunk(config.fields);
-      isPlainObj(fieldMap) || (0, _devAssert.devAssert)(false, `${config.name} fields must be an object with field names as keys or a function which returns such an object.`);
+    function defineInputFieldMap(config2) {
+      const fieldMap = resolveObjMapThunk(config2.fields);
+      isPlainObj(fieldMap) || (0, _devAssert.devAssert)(false, `${config2.name} fields must be an object with field names as keys or a function which returns such an object.`);
       return (0, _mapValue.mapValue)(fieldMap, (fieldConfig, fieldName) => {
-        !("resolve" in fieldConfig) || (0, _devAssert.devAssert)(false, `${config.name}.${fieldName} field has a resolve property, but Input Types cannot define resolvers.`);
+        !("resolve" in fieldConfig) || (0, _devAssert.devAssert)(false, `${config2.name}.${fieldName} field has a resolve property, but Input Types cannot define resolvers.`);
         return {
           name: (0, _assertName.assertName)(fieldName),
           description: fieldConfig.description,
@@ -20890,17 +20890,17 @@ var require_directives = __commonJS({
       return directive;
     }
     var GraphQLDirective = class {
-      constructor(config) {
+      constructor(config2) {
         var _config$isRepeatable, _config$args;
-        this.name = (0, _assertName.assertName)(config.name);
-        this.description = config.description;
-        this.locations = config.locations;
-        this.isRepeatable = (_config$isRepeatable = config.isRepeatable) !== null && _config$isRepeatable !== void 0 ? _config$isRepeatable : false;
-        this.extensions = (0, _toObjMap.toObjMap)(config.extensions);
-        this.astNode = config.astNode;
-        Array.isArray(config.locations) || (0, _devAssert.devAssert)(false, `@${config.name} locations must be an Array.`);
-        const args = (_config$args = config.args) !== null && _config$args !== void 0 ? _config$args : {};
-        (0, _isObjectLike.isObjectLike)(args) && !Array.isArray(args) || (0, _devAssert.devAssert)(false, `@${config.name} args must be an object with argument names as keys.`);
+        this.name = (0, _assertName.assertName)(config2.name);
+        this.description = config2.description;
+        this.locations = config2.locations;
+        this.isRepeatable = (_config$isRepeatable = config2.isRepeatable) !== null && _config$isRepeatable !== void 0 ? _config$isRepeatable : false;
+        this.extensions = (0, _toObjMap.toObjMap)(config2.extensions);
+        this.astNode = config2.astNode;
+        Array.isArray(config2.locations) || (0, _devAssert.devAssert)(false, `@${config2.name} locations must be an Array.`);
+        const args = (_config$args = config2.args) !== null && _config$args !== void 0 ? _config$args : {};
+        (0, _isObjectLike.isObjectLike)(args) && !Array.isArray(args) || (0, _devAssert.devAssert)(false, `@${config2.name} args must be an object with argument names as keys.`);
         this.args = (0, _definition.defineArguments)(args);
       }
       get [Symbol.toStringTag]() {
@@ -21658,23 +21658,23 @@ var require_schema = __commonJS({
       return schema;
     }
     var GraphQLSchema = class {
-      constructor(config) {
+      constructor(config2) {
         var _config$extensionASTN, _config$directives;
-        this.__validationErrors = config.assumeValid === true ? [] : void 0;
-        (0, _isObjectLike.isObjectLike)(config) || (0, _devAssert.devAssert)(false, "Must provide configuration object.");
-        !config.types || Array.isArray(config.types) || (0, _devAssert.devAssert)(false, `"types" must be Array if provided but got: ${(0, _inspect.inspect)(config.types)}.`);
-        !config.directives || Array.isArray(config.directives) || (0, _devAssert.devAssert)(false, `"directives" must be Array if provided but got: ${(0, _inspect.inspect)(config.directives)}.`);
-        this.description = config.description;
-        this.extensions = (0, _toObjMap.toObjMap)(config.extensions);
-        this.astNode = config.astNode;
-        this.extensionASTNodes = (_config$extensionASTN = config.extensionASTNodes) !== null && _config$extensionASTN !== void 0 ? _config$extensionASTN : [];
-        this._queryType = config.query;
-        this._mutationType = config.mutation;
-        this._subscriptionType = config.subscription;
-        this._directives = (_config$directives = config.directives) !== null && _config$directives !== void 0 ? _config$directives : _directives.specifiedDirectives;
-        const allReferencedTypes = new Set(config.types);
-        if (config.types != null) {
-          for (const type of config.types) {
+        this.__validationErrors = config2.assumeValid === true ? [] : void 0;
+        (0, _isObjectLike.isObjectLike)(config2) || (0, _devAssert.devAssert)(false, "Must provide configuration object.");
+        !config2.types || Array.isArray(config2.types) || (0, _devAssert.devAssert)(false, `"types" must be Array if provided but got: ${(0, _inspect.inspect)(config2.types)}.`);
+        !config2.directives || Array.isArray(config2.directives) || (0, _devAssert.devAssert)(false, `"directives" must be Array if provided but got: ${(0, _inspect.inspect)(config2.directives)}.`);
+        this.description = config2.description;
+        this.extensions = (0, _toObjMap.toObjMap)(config2.extensions);
+        this.astNode = config2.astNode;
+        this.extensionASTNodes = (_config$extensionASTN = config2.extensionASTNodes) !== null && _config$extensionASTN !== void 0 ? _config$extensionASTN : [];
+        this._queryType = config2.query;
+        this._mutationType = config2.mutation;
+        this._subscriptionType = config2.subscription;
+        this._directives = (_config$directives = config2.directives) !== null && _config$directives !== void 0 ? _config$directives : _directives.specifiedDirectives;
+        const allReferencedTypes = new Set(config2.types);
+        if (config2.types != null) {
+          for (const type of config2.types) {
             allReferencedTypes.delete(type);
             collectReferencedTypes(type, allReferencedTypes);
           }
@@ -27964,9 +27964,9 @@ var require_extendSchema = __commonJS({
         return typeMap[type.name];
       }
       function replaceDirective(directive) {
-        const config = directive.toConfig();
-        return new _directives.GraphQLDirective(__spreadProps(__spreadValues({}, config), {
-          args: (0, _mapValue.mapValue)(config.args, extendArg)
+        const config2 = directive.toConfig();
+        return new _directives.GraphQLDirective(__spreadProps(__spreadValues({}, config2), {
+          args: (0, _mapValue.mapValue)(config2.args, extendArg)
         }));
       }
       function extendNamedType(type) {
@@ -27995,74 +27995,74 @@ var require_extendSchema = __commonJS({
       }
       function extendInputObjectType(type) {
         var _typeExtensionsMap$co;
-        const config = type.toConfig();
-        const extensions = (_typeExtensionsMap$co = typeExtensionsMap[config.name]) !== null && _typeExtensionsMap$co !== void 0 ? _typeExtensionsMap$co : [];
-        return new _definition.GraphQLInputObjectType(__spreadProps(__spreadValues({}, config), {
-          fields: () => __spreadValues(__spreadValues({}, (0, _mapValue.mapValue)(config.fields, (field) => __spreadProps(__spreadValues({}, field), {
+        const config2 = type.toConfig();
+        const extensions = (_typeExtensionsMap$co = typeExtensionsMap[config2.name]) !== null && _typeExtensionsMap$co !== void 0 ? _typeExtensionsMap$co : [];
+        return new _definition.GraphQLInputObjectType(__spreadProps(__spreadValues({}, config2), {
+          fields: () => __spreadValues(__spreadValues({}, (0, _mapValue.mapValue)(config2.fields, (field) => __spreadProps(__spreadValues({}, field), {
             type: replaceType(field.type)
           }))), buildInputFieldMap(extensions)),
-          extensionASTNodes: config.extensionASTNodes.concat(extensions)
+          extensionASTNodes: config2.extensionASTNodes.concat(extensions)
         }));
       }
       function extendEnumType(type) {
         var _typeExtensionsMap$ty;
-        const config = type.toConfig();
+        const config2 = type.toConfig();
         const extensions = (_typeExtensionsMap$ty = typeExtensionsMap[type.name]) !== null && _typeExtensionsMap$ty !== void 0 ? _typeExtensionsMap$ty : [];
-        return new _definition.GraphQLEnumType(__spreadProps(__spreadValues({}, config), {
-          values: __spreadValues(__spreadValues({}, config.values), buildEnumValueMap(extensions)),
-          extensionASTNodes: config.extensionASTNodes.concat(extensions)
+        return new _definition.GraphQLEnumType(__spreadProps(__spreadValues({}, config2), {
+          values: __spreadValues(__spreadValues({}, config2.values), buildEnumValueMap(extensions)),
+          extensionASTNodes: config2.extensionASTNodes.concat(extensions)
         }));
       }
       function extendScalarType(type) {
         var _typeExtensionsMap$co2;
-        const config = type.toConfig();
-        const extensions = (_typeExtensionsMap$co2 = typeExtensionsMap[config.name]) !== null && _typeExtensionsMap$co2 !== void 0 ? _typeExtensionsMap$co2 : [];
-        let specifiedByURL = config.specifiedByURL;
+        const config2 = type.toConfig();
+        const extensions = (_typeExtensionsMap$co2 = typeExtensionsMap[config2.name]) !== null && _typeExtensionsMap$co2 !== void 0 ? _typeExtensionsMap$co2 : [];
+        let specifiedByURL = config2.specifiedByURL;
         for (const extensionNode of extensions) {
           var _getSpecifiedByURL;
           specifiedByURL = (_getSpecifiedByURL = getSpecifiedByURL(extensionNode)) !== null && _getSpecifiedByURL !== void 0 ? _getSpecifiedByURL : specifiedByURL;
         }
-        return new _definition.GraphQLScalarType(__spreadProps(__spreadValues({}, config), {
+        return new _definition.GraphQLScalarType(__spreadProps(__spreadValues({}, config2), {
           specifiedByURL,
-          extensionASTNodes: config.extensionASTNodes.concat(extensions)
+          extensionASTNodes: config2.extensionASTNodes.concat(extensions)
         }));
       }
       function extendObjectType(type) {
         var _typeExtensionsMap$co3;
-        const config = type.toConfig();
-        const extensions = (_typeExtensionsMap$co3 = typeExtensionsMap[config.name]) !== null && _typeExtensionsMap$co3 !== void 0 ? _typeExtensionsMap$co3 : [];
-        return new _definition.GraphQLObjectType(__spreadProps(__spreadValues({}, config), {
+        const config2 = type.toConfig();
+        const extensions = (_typeExtensionsMap$co3 = typeExtensionsMap[config2.name]) !== null && _typeExtensionsMap$co3 !== void 0 ? _typeExtensionsMap$co3 : [];
+        return new _definition.GraphQLObjectType(__spreadProps(__spreadValues({}, config2), {
           interfaces: () => [
             ...type.getInterfaces().map(replaceNamedType),
             ...buildInterfaces(extensions)
           ],
-          fields: () => __spreadValues(__spreadValues({}, (0, _mapValue.mapValue)(config.fields, extendField)), buildFieldMap(extensions)),
-          extensionASTNodes: config.extensionASTNodes.concat(extensions)
+          fields: () => __spreadValues(__spreadValues({}, (0, _mapValue.mapValue)(config2.fields, extendField)), buildFieldMap(extensions)),
+          extensionASTNodes: config2.extensionASTNodes.concat(extensions)
         }));
       }
       function extendInterfaceType(type) {
         var _typeExtensionsMap$co4;
-        const config = type.toConfig();
-        const extensions = (_typeExtensionsMap$co4 = typeExtensionsMap[config.name]) !== null && _typeExtensionsMap$co4 !== void 0 ? _typeExtensionsMap$co4 : [];
-        return new _definition.GraphQLInterfaceType(__spreadProps(__spreadValues({}, config), {
+        const config2 = type.toConfig();
+        const extensions = (_typeExtensionsMap$co4 = typeExtensionsMap[config2.name]) !== null && _typeExtensionsMap$co4 !== void 0 ? _typeExtensionsMap$co4 : [];
+        return new _definition.GraphQLInterfaceType(__spreadProps(__spreadValues({}, config2), {
           interfaces: () => [
             ...type.getInterfaces().map(replaceNamedType),
             ...buildInterfaces(extensions)
           ],
-          fields: () => __spreadValues(__spreadValues({}, (0, _mapValue.mapValue)(config.fields, extendField)), buildFieldMap(extensions)),
-          extensionASTNodes: config.extensionASTNodes.concat(extensions)
+          fields: () => __spreadValues(__spreadValues({}, (0, _mapValue.mapValue)(config2.fields, extendField)), buildFieldMap(extensions)),
+          extensionASTNodes: config2.extensionASTNodes.concat(extensions)
         }));
       }
       function extendUnionType(type) {
         var _typeExtensionsMap$co5;
-        const config = type.toConfig();
-        const extensions = (_typeExtensionsMap$co5 = typeExtensionsMap[config.name]) !== null && _typeExtensionsMap$co5 !== void 0 ? _typeExtensionsMap$co5 : [];
-        return new _definition.GraphQLUnionType(__spreadProps(__spreadValues({}, config), {
+        const config2 = type.toConfig();
+        const extensions = (_typeExtensionsMap$co5 = typeExtensionsMap[config2.name]) !== null && _typeExtensionsMap$co5 !== void 0 ? _typeExtensionsMap$co5 : [];
+        return new _definition.GraphQLUnionType(__spreadProps(__spreadValues({}, config2), {
           types: () => [
             ...type.getTypes().map(replaceNamedType),
             ...buildUnionTypes(extensions)
           ],
-          extensionASTNodes: config.extensionASTNodes.concat(extensions)
+          extensionASTNodes: config2.extensionASTNodes.concat(extensions)
         }));
       }
       function extendField(field) {
@@ -28311,27 +28311,27 @@ var require_buildASTSchema = __commonJS({
         extensionASTNodes: [],
         assumeValid: false
       };
-      const config = (0, _extendSchema.extendSchemaImpl)(emptySchemaConfig, documentAST, options);
-      if (config.astNode == null) {
-        for (const type of config.types) {
+      const config2 = (0, _extendSchema.extendSchemaImpl)(emptySchemaConfig, documentAST, options);
+      if (config2.astNode == null) {
+        for (const type of config2.types) {
           switch (type.name) {
             case "Query":
-              config.query = type;
+              config2.query = type;
               break;
             case "Mutation":
-              config.mutation = type;
+              config2.mutation = type;
               break;
             case "Subscription":
-              config.subscription = type;
+              config2.subscription = type;
               break;
           }
         }
       }
       const directives = [
-        ...config.directives,
-        ..._directives.specifiedDirectives.filter((stdDirective) => config.directives.every((directive) => directive.name !== stdDirective.name))
+        ...config2.directives,
+        ..._directives.specifiedDirectives.filter((stdDirective) => config2.directives.every((directive) => directive.name !== stdDirective.name))
       ];
-      return new _schema.GraphQLSchema(__spreadProps(__spreadValues({}, config), { directives }));
+      return new _schema.GraphQLSchema(__spreadProps(__spreadValues({}, config2), { directives }));
     }
     function buildSchema(source, options) {
       const document = (0, _parser.parse)(source, {
@@ -28387,10 +28387,10 @@ var require_lexicographicSortSchema = __commonJS({
         return maybeType && replaceNamedType(maybeType);
       }
       function sortDirective(directive) {
-        const config = directive.toConfig();
-        return new _directives.GraphQLDirective(__spreadProps(__spreadValues({}, config), {
-          locations: sortBy(config.locations, (x) => x),
-          args: sortArgs(config.args)
+        const config2 = directive.toConfig();
+        return new _directives.GraphQLDirective(__spreadProps(__spreadValues({}, config2), {
+          locations: sortBy(config2.locations, (x) => x),
+          args: sortArgs(config2.args)
         }));
       }
       function sortArgs(args) {
@@ -28415,35 +28415,35 @@ var require_lexicographicSortSchema = __commonJS({
           return type;
         }
         if ((0, _definition.isObjectType)(type)) {
-          const config = type.toConfig();
-          return new _definition.GraphQLObjectType(__spreadProps(__spreadValues({}, config), {
-            interfaces: () => sortTypes(config.interfaces),
-            fields: () => sortFields(config.fields)
+          const config2 = type.toConfig();
+          return new _definition.GraphQLObjectType(__spreadProps(__spreadValues({}, config2), {
+            interfaces: () => sortTypes(config2.interfaces),
+            fields: () => sortFields(config2.fields)
           }));
         }
         if ((0, _definition.isInterfaceType)(type)) {
-          const config = type.toConfig();
-          return new _definition.GraphQLInterfaceType(__spreadProps(__spreadValues({}, config), {
-            interfaces: () => sortTypes(config.interfaces),
-            fields: () => sortFields(config.fields)
+          const config2 = type.toConfig();
+          return new _definition.GraphQLInterfaceType(__spreadProps(__spreadValues({}, config2), {
+            interfaces: () => sortTypes(config2.interfaces),
+            fields: () => sortFields(config2.fields)
           }));
         }
         if ((0, _definition.isUnionType)(type)) {
-          const config = type.toConfig();
-          return new _definition.GraphQLUnionType(__spreadProps(__spreadValues({}, config), {
-            types: () => sortTypes(config.types)
+          const config2 = type.toConfig();
+          return new _definition.GraphQLUnionType(__spreadProps(__spreadValues({}, config2), {
+            types: () => sortTypes(config2.types)
           }));
         }
         if ((0, _definition.isEnumType)(type)) {
-          const config = type.toConfig();
-          return new _definition.GraphQLEnumType(__spreadProps(__spreadValues({}, config), {
-            values: sortObjMap(config.values, (value) => value)
+          const config2 = type.toConfig();
+          return new _definition.GraphQLEnumType(__spreadProps(__spreadValues({}, config2), {
+            values: sortObjMap(config2.values, (value) => value)
           }));
         }
         if ((0, _definition.isInputObjectType)(type)) {
-          const config = type.toConfig();
-          return new _definition.GraphQLInputObjectType(__spreadProps(__spreadValues({}, config), {
-            fields: () => sortInputFields(config.fields)
+          const config2 = type.toConfig();
+          return new _definition.GraphQLInputObjectType(__spreadProps(__spreadValues({}, config2), {
+            fields: () => sortInputFields(config2.fields)
           }));
         }
         (0, _invariant.invariant)(false, "Unexpected type: " + (0, _inspect.inspect)(type));
@@ -30801,13 +30801,26 @@ module.exports = __toCommonJS(admin_login_exports);
 
 // netlify/common/password.ts
 var import_crypto = __toESM(require("crypto"));
+
+// netlify/core/config.ts
+var config = {
+  hasuraEndpoint: process.env.HASURA_ENDPOINT,
+  hasuraAdminSecret: process.env.HASURA_ADMIN_SECRET,
+  hasuraPizzaStackSecret: process.env.HASURA_PIZZA_STACK_SECRET,
+  cloudinaryCloudName: process.env.CLOUD_NAME,
+  cloudinaryApiKey: process.env.API_KEY,
+  cloudinarySecret: process.env.API_SECRET,
+  jwtSecret: process.env.JWT_SECRET,
+  passwordSalt: process.env.PASSWORD_SALT
+};
+
+// netlify/common/password.ts
 var hashPassword = (password) => {
-  return import_crypto.default.pbkdf2Sync(password, "mygreatsaltsecret", 1e3, 64, "sha512").toString("hex");
+  return import_crypto.default.pbkdf2Sync(password, config.passwordSalt, 1e3, 64, "sha512").toString("hex");
 };
 
 // netlify/common/jwt.ts
 var import_jsonwebtoken = __toESM(require_jsonwebtoken());
-var JWT_SECRET = "2sJ63Qo39XeE0HHtTe0MfLmM2ojZGwhQ";
 var HASURA_CLAIMS = "https://hasura.io/jwt/claims";
 var signToken = (id) => {
   return import_jsonwebtoken.default.sign({
@@ -30816,7 +30829,7 @@ var signToken = (id) => {
       "x-hasura-default-role": "admin",
       "x-hasura-user-id": id
     }
-  }, JWT_SECRET);
+  }, config.jwtSecret);
 };
 
 // netlify/common/api.ts
@@ -30863,7 +30876,7 @@ function getSdk(client, withWrapper = defaultWrapper) {
 }
 
 // netlify/common/api.ts
-var api = getSdk(new import_graphql_request.GraphQLClient("http://localhost:8080/v1/graphql"));
+var api = getSdk(new import_graphql_request.GraphQLClient(config.hasuraEndpoint));
 
 // netlify/functions/admin-login.ts
 var invalidUserOrPassword = {
@@ -30876,7 +30889,7 @@ var handler = async (event, context) => {
   const data = await api.GetAdminByUsername({
     username: input.username
   }, {
-    "x-hasura-admin-secret": "myadminsecretkey"
+    "x-hasura-admin-secret": config.hasuraAdminSecret
   });
   if (data.admin.length === 0) {
     return invalidUserOrPassword;

@@ -1,3 +1,4 @@
+import { config } from '../core/config'
 import { api } from './api'
 import { getTokenData, HASURA_CLAIMS, HASURA_ID } from './jwt'
 import { GetAdminByIdQuery } from './sdk'
@@ -21,7 +22,7 @@ export const getAdminFromHeaders = async (
 	const data = await api.GetAdminById(
 		{ id: adminId },
 		{
-			'x-hasura-admin-secret': 'myadminsecretkey',
+			'x-hasura-admin-secret': config.hasuraAdminSecret,
 		}
 	)
 	return data
