@@ -30806,7 +30806,7 @@ var import_crypto = __toESM(require("crypto"));
 var config = {
   hasuraEndpoint: process.env.HASURA_ENDPOINT,
   hasuraAdminSecret: process.env.HASURA_ADMIN_SECRET,
-  hasuraPizzaStackSecret: process.env.HASURA_PIZZA_STACK_SECRET,
+  hasuraPizzaStackSecret: process.env.HASURA_PIZZASTACK_SECRET,
   cloudinaryCloudName: process.env.CLOUD_NAME,
   cloudinaryApiKey: process.env.API_KEY,
   cloudinarySecret: process.env.API_SECRET,
