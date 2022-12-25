@@ -8,11 +8,15 @@ import { config } from '../core/config'
 
 const handler: Handler = async (event, context) => {
 	const { headers, queryStringParameters } = event
-	const { amount: AmountRaw = '1', recent: recentRow = '0' } =
-		queryStringParameters
+	const {
+		amount: AmountRaw = '1',
+		recent: recentRow = '0',
+		forceCreate: forceCreateRaw = 'false',
+	} = queryStringParameters
 
 	const amount = Number(AmountRaw)
 	const recent = Number(recentRow)
+	const forceCreate = forceCreateRaw === 'true'
 	try {
 		verifyHasura(headers)
 	} catch (error) {
@@ -23,7 +27,7 @@ const handler: Handler = async (event, context) => {
 
 	const isWorkingHours = currentHour >= 10 && currentHour <= 22
 
-	if (!isWorkingHours) {
+	if (!isWorkingHours && !forceCreate) {
 		return {
 			statusCode: 202,
 			body: JSON.stringify({ status: 'not working hours' }),
