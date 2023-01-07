@@ -30769,6 +30769,9 @@ var config = {
   cloudinaryCloudName: process.env.CLOUD_NAME,
   cloudinaryApiKey: process.env.API_KEY,
   cloudinarySecret: process.env.API_SECRET,
+  twilioAccountSid: process.env.TWILIO_ACCOUNT_SID,
+  twilioAuthToken: process.env.TWILIO_AUTH_TOKEN,
+  twilioServiceSid: process.env.TWILIO_SERVICE_SID,
   jwtSecret: process.env.JWT_SECRET,
   passwordSalt: process.env.PASSWORD_SALT
 };
@@ -30781,12 +30784,17 @@ var hashPassword = (password) => {
 // netlify/common/jwt.ts
 var import_jsonwebtoken = __toESM(require_jsonwebtoken());
 var HASURA_CLAIMS = "https://hasura.io/jwt/claims";
-var signToken = (id) => {
+var HASURA_ID = "x-hasura-user-id";
+var signToken = (id, role = "admin") => {
+  const allowedRoles = ["user"];
+  if (role === "admin") {
+    allowedRoles.push("admin");
+  }
   return import_jsonwebtoken.default.sign({
     [HASURA_CLAIMS]: {
-      "x-hasura-allowed-roles": ["admin"],
-      "x-hasura-default-role": "admin",
-      "x-hasura-user-id": id
+      "x-hasura-allowed-roles": allowedRoles,
+      "x-hasura-default-role": role,
+      [HASURA_ID]: id
     }
   }, config.jwtSecret);
 };
@@ -30822,6 +30830,24 @@ var GetAdminByIdDocument = import_graphql_tag.default`
 var GetCategoriesDocument = import_graphql_tag.default`
     query GetCategories {
   categories {
+    id
+  }
+}
+    `;
+var GetCustomerByPhoneDocument = import_graphql_tag.default`
+    query GetCustomerByPhone($phoneNumber: String!) {
+  customers(where: {phone: {_eq: $phoneNumber}}) {
+    twilioVerificationSid
+    id
+  }
+}
+    `;
+var CreateNewUserDocument = import_graphql_tag.default`
+    mutation CreateNewUser($phone: String!, $twilioVerificationSid: String!) {
+  insert_customers_one(
+    object: {twilioVerificationSid: $twilioVerificationSid, phone: $phone}
+    on_conflict: {constraint: customers_phone_key, update_columns: twilioVerificationSid}
+  ) {
     id
   }
 }
@@ -30866,6 +30892,12 @@ function getSdk(client, withWrapper = defaultWrapper) {
     },
     GetCategories(variables, requestHeaders) {
       return withWrapper((wrappedRequestHeaders) => client.request(GetCategoriesDocument, variables, __spreadValues(__spreadValues({}, requestHeaders), wrappedRequestHeaders)), "GetCategories", "query");
+    },
+    GetCustomerByPhone(variables, requestHeaders) {
+      return withWrapper((wrappedRequestHeaders) => client.request(GetCustomerByPhoneDocument, variables, __spreadValues(__spreadValues({}, requestHeaders), wrappedRequestHeaders)), "GetCustomerByPhone", "query");
+    },
+    CreateNewUser(variables, requestHeaders) {
+      return withWrapper((wrappedRequestHeaders) => client.request(CreateNewUserDocument, variables, __spreadValues(__spreadValues({}, requestHeaders), wrappedRequestHeaders)), "CreateNewUser", "mutation");
     },
     GetMenuItemsGroupedByCategoryId(variables, requestHeaders) {
       return withWrapper((wrappedRequestHeaders) => client.request(GetMenuItemsGroupedByCategoryIdDocument, variables, __spreadValues(__spreadValues({}, requestHeaders), wrappedRequestHeaders)), "GetMenuItemsGroupedByCategoryId", "query");
