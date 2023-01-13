@@ -30863,9 +30863,9 @@ var GetMenuItemsGroupedByCategoryIdDocument = import_graphql_tag.default`
 }
     `;
 var CreateFakeOrderDocument = import_graphql_tag.default`
-    mutation CreateFakeOrder($client_address: String!, $client_name: String!, $client_phone: String!, $created_at: timestamptz) {
+    mutation CreateFakeOrder($client_address: String!, $client_name: String!, $client_phone: String!, $created_at: timestamptz, $comment: String!, $payment_type: payment_types_enum!) {
   insert_orders_one(
-    object: {client_address: $client_address, client_name: $client_name, client_phone: $client_phone, status: DELIVERED, created_at: $created_at}
+    object: {client_address: $client_address, client_name: $client_name, client_phone: $client_phone, status: DELIVERED, created_at: $created_at, comment: $comment, payment_type: $payment_type}
   ) {
     id
   }

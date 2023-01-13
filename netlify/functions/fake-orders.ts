@@ -2,7 +2,10 @@ import { faker } from '@faker-js/faker'
 import { Handler } from '@netlify/functions'
 import { DateTime } from 'luxon'
 import { api } from '../common/api'
-import { CreateFakeOrderMutationVariables } from '../common/sdk'
+import {
+	CreateFakeOrderMutationVariables,
+	Payment_Types_Enum,
+} from '../common/sdk'
 import { verifyHasura } from '../common/verifyHasura'
 import { config } from '../core/config'
 
@@ -49,6 +52,10 @@ const handler: Handler = async (event, context) => {
 			client_name: faker.name.fullName(),
 			client_phone: faker.phone.number('+380#########'),
 			created_at: new Date(),
+			comment: faker.datatype.boolean() ? faker.lorem.lines(2) : null,
+			payment_type: faker.datatype.boolean()
+				? Payment_Types_Enum.Card
+				: Payment_Types_Enum.Cash,
 		}
 
 		if (recent !== 0) {
