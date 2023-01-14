@@ -15,7 +15,7 @@ const handler: Handler = async (event, context) => {
 	try {
 		verifyHasura(headers)
 	} catch (error) {
-		return JSON.parse(body)
+		return JSON.parse(error.message)
 	}
 
 	const input: CustomerVerifyCodeInput = JSON.parse(body).input.input

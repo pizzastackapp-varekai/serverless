@@ -15,11 +15,13 @@ const handler: Handler = async (event, context) => {
 		amount: AmountRaw = '1',
 		recent: recentRow = '0',
 		forceCreate: forceCreateRaw = 'false',
+		phone: phoneRaw = null,
 	} = queryStringParameters
 
 	const amount = Number(AmountRaw)
 	const recent = Number(recentRow)
 	const forceCreate = forceCreateRaw === 'true'
+	const phone = phoneRaw ? decodeURIComponent(phoneRaw) : null
 	try {
 		verifyHasura(headers)
 	} catch (error) {
@@ -50,7 +52,7 @@ const handler: Handler = async (event, context) => {
 		const fakeData: CreateFakeOrderMutationVariables = {
 			client_address: faker.address.streetAddress(true),
 			client_name: faker.name.fullName(),
-			client_phone: faker.phone.number('+380#########'),
+			client_phone: phone ?? faker.phone.number('+380#########'),
 			created_at: new Date(),
 			comment: faker.datatype.boolean() ? faker.lorem.lines(2) : null,
 			payment_type: faker.datatype.boolean()

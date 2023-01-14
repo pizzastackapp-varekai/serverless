@@ -410,8 +410,32 @@ export type Customers = {
   address?: Maybe<Scalars['String']>;
   id: Scalars['uuid'];
   name?: Maybe<Scalars['String']>;
+  /** An array relationship */
+  orders: Array<Orders>;
+  /** An aggregate relationship */
+  orders_aggregate: Orders_Aggregate;
   phone: Scalars['String'];
   twilioVerificationSid?: Maybe<Scalars['String']>;
+};
+
+
+/** columns and relationships of "customers" */
+export type CustomersOrdersArgs = {
+  distinct_on?: InputMaybe<Array<Orders_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Orders_Order_By>>;
+  where?: InputMaybe<Orders_Bool_Exp>;
+};
+
+
+/** columns and relationships of "customers" */
+export type CustomersOrders_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Orders_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Orders_Order_By>>;
+  where?: InputMaybe<Orders_Bool_Exp>;
 };
 
 /** aggregated selection of "customers" */
@@ -444,6 +468,7 @@ export type Customers_Bool_Exp = {
   address?: InputMaybe<String_Comparison_Exp>;
   id?: InputMaybe<Uuid_Comparison_Exp>;
   name?: InputMaybe<String_Comparison_Exp>;
+  orders?: InputMaybe<Orders_Bool_Exp>;
   phone?: InputMaybe<String_Comparison_Exp>;
   twilioVerificationSid?: InputMaybe<String_Comparison_Exp>;
 };
@@ -461,6 +486,7 @@ export type Customers_Insert_Input = {
   address?: InputMaybe<Scalars['String']>;
   id?: InputMaybe<Scalars['uuid']>;
   name?: InputMaybe<Scalars['String']>;
+  orders?: InputMaybe<Orders_Arr_Rel_Insert_Input>;
   phone?: InputMaybe<Scalars['String']>;
   twilioVerificationSid?: InputMaybe<Scalars['String']>;
 };
@@ -494,6 +520,13 @@ export type Customers_Mutation_Response = {
   returning: Array<Customers>;
 };
 
+/** input type for inserting object relation for remote table "customers" */
+export type Customers_Obj_Rel_Insert_Input = {
+  data: Customers_Insert_Input;
+  /** upsert condition */
+  on_conflict?: InputMaybe<Customers_On_Conflict>;
+};
+
 /** on_conflict condition type for table "customers" */
 export type Customers_On_Conflict = {
   constraint: Customers_Constraint;
@@ -506,6 +539,7 @@ export type Customers_Order_By = {
   address?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
   name?: InputMaybe<Order_By>;
+  orders_aggregate?: InputMaybe<Orders_Aggregate_Order_By>;
   phone?: InputMaybe<Order_By>;
   twilioVerificationSid?: InputMaybe<Order_By>;
 };
@@ -1698,6 +1732,8 @@ export type Orders = {
   client_phone: Scalars['String'];
   comment?: Maybe<Scalars['String']>;
   created_at: Scalars['timestamptz'];
+  /** An object relationship */
+  customer?: Maybe<Customers>;
   id: Scalars['uuid'];
   /** An array relationship */
   order_items: Array<Orders_Menu>;
@@ -1751,6 +1787,20 @@ export type Orders_Aggregate_FieldsCountArgs = {
   distinct?: InputMaybe<Scalars['Boolean']>;
 };
 
+/** order by aggregate values of table "orders" */
+export type Orders_Aggregate_Order_By = {
+  count?: InputMaybe<Order_By>;
+  max?: InputMaybe<Orders_Max_Order_By>;
+  min?: InputMaybe<Orders_Min_Order_By>;
+};
+
+/** input type for inserting array relation for remote table "orders" */
+export type Orders_Arr_Rel_Insert_Input = {
+  data: Array<Orders_Insert_Input>;
+  /** upsert condition */
+  on_conflict?: InputMaybe<Orders_On_Conflict>;
+};
+
 /** Boolean expression to filter rows from the table "orders". All fields are combined with a logical 'AND'. */
 export type Orders_Bool_Exp = {
   _and?: InputMaybe<Array<Orders_Bool_Exp>>;
@@ -1761,6 +1811,7 @@ export type Orders_Bool_Exp = {
   client_phone?: InputMaybe<String_Comparison_Exp>;
   comment?: InputMaybe<String_Comparison_Exp>;
   created_at?: InputMaybe<Timestamptz_Comparison_Exp>;
+  customer?: InputMaybe<Customers_Bool_Exp>;
   id?: InputMaybe<Uuid_Comparison_Exp>;
   order_items?: InputMaybe<Orders_Menu_Bool_Exp>;
   payment_type?: InputMaybe<Payment_Types_Enum_Comparison_Exp>;
@@ -1781,6 +1832,7 @@ export type Orders_Insert_Input = {
   client_phone?: InputMaybe<Scalars['String']>;
   comment?: InputMaybe<Scalars['String']>;
   created_at?: InputMaybe<Scalars['timestamptz']>;
+  customer?: InputMaybe<Customers_Obj_Rel_Insert_Input>;
   id?: InputMaybe<Scalars['uuid']>;
   order_items?: InputMaybe<Orders_Menu_Arr_Rel_Insert_Input>;
   payment_type?: InputMaybe<Payment_Types_Enum>;
@@ -1796,6 +1848,16 @@ export type Orders_Max_Fields = {
   comment?: Maybe<Scalars['String']>;
   created_at?: Maybe<Scalars['timestamptz']>;
   id?: Maybe<Scalars['uuid']>;
+};
+
+/** order by max() on columns of table "orders" */
+export type Orders_Max_Order_By = {
+  client_address?: InputMaybe<Order_By>;
+  client_name?: InputMaybe<Order_By>;
+  client_phone?: InputMaybe<Order_By>;
+  comment?: InputMaybe<Order_By>;
+  created_at?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
 };
 
 /** columns and relationships of "orders_menu" */
@@ -1966,6 +2028,16 @@ export type Orders_Min_Fields = {
   id?: Maybe<Scalars['uuid']>;
 };
 
+/** order by min() on columns of table "orders" */
+export type Orders_Min_Order_By = {
+  client_address?: InputMaybe<Order_By>;
+  client_name?: InputMaybe<Order_By>;
+  client_phone?: InputMaybe<Order_By>;
+  comment?: InputMaybe<Order_By>;
+  created_at?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+};
+
 /** response of any mutation on the table "orders" */
 export type Orders_Mutation_Response = {
   __typename?: 'orders_mutation_response';
@@ -1989,6 +2061,7 @@ export type Orders_Order_By = {
   client_phone?: InputMaybe<Order_By>;
   comment?: InputMaybe<Order_By>;
   created_at?: InputMaybe<Order_By>;
+  customer?: InputMaybe<Customers_Order_By>;
   id?: InputMaybe<Order_By>;
   order_items_aggregate?: InputMaybe<Orders_Menu_Aggregate_Order_By>;
   payment_type?: InputMaybe<Order_By>;
@@ -2226,9 +2299,9 @@ export type Query_Root = {
   order_status_aggregate: Order_Status_Aggregate;
   /** fetch data from the table: "order_status" using primary key columns */
   order_status_by_pk?: Maybe<Order_Status>;
-  /** fetch data from the table: "orders" */
+  /** An array relationship */
   orders: Array<Orders>;
-  /** fetch aggregated fields from the table: "orders" */
+  /** An aggregate relationship */
   orders_aggregate: Orders_Aggregate;
   /** fetch data from the table: "orders" using primary key columns */
   orders_by_pk?: Maybe<Orders>;
@@ -2641,9 +2714,9 @@ export type Subscription_Root = {
   order_status_aggregate: Order_Status_Aggregate;
   /** fetch data from the table: "order_status" using primary key columns */
   order_status_by_pk?: Maybe<Order_Status>;
-  /** fetch data from the table: "orders" */
+  /** An array relationship */
   orders: Array<Orders>;
-  /** fetch aggregated fields from the table: "orders" */
+  /** An aggregate relationship */
   orders_aggregate: Orders_Aggregate;
   /** fetch data from the table: "orders" using primary key columns */
   orders_by_pk?: Maybe<Orders>;
@@ -2952,13 +3025,22 @@ export type GetCustomerByPhoneQueryVariables = Exact<{
 
 export type GetCustomerByPhoneQuery = { __typename?: 'query_root', customers: Array<{ __typename?: 'customers', twilioVerificationSid?: string | null, id: any }> };
 
-export type CreateNewUserMutationVariables = Exact<{
+export type RegisterNewCustomerMutationVariables = Exact<{
   phone: Scalars['String'];
   twilioVerificationSid: Scalars['String'];
 }>;
 
 
-export type CreateNewUserMutation = { __typename?: 'mutation_root', insert_customers_one?: { __typename?: 'customers', id: any } | null };
+export type RegisterNewCustomerMutation = { __typename?: 'mutation_root', insert_customers_one?: { __typename?: 'customers', id: any } | null };
+
+export type CreateNewCustomerMutationVariables = Exact<{
+  phone: Scalars['String'];
+  address: Scalars['String'];
+  name: Scalars['String'];
+}>;
+
+
+export type CreateNewCustomerMutation = { __typename?: 'mutation_root', insert_customers_one?: { __typename?: 'customers', id: any } | null };
 
 export type GetMenuItemsGroupedByCategoryIdQueryVariables = Exact<{
   firstCategory: Scalars['uuid'];
@@ -3026,11 +3108,21 @@ export const GetCustomerByPhoneDocument = gql`
   }
 }
     `;
-export const CreateNewUserDocument = gql`
-    mutation CreateNewUser($phone: String!, $twilioVerificationSid: String!) {
+export const RegisterNewCustomerDocument = gql`
+    mutation RegisterNewCustomer($phone: String!, $twilioVerificationSid: String!) {
   insert_customers_one(
     object: {twilioVerificationSid: $twilioVerificationSid, phone: $phone}
     on_conflict: {constraint: customers_phone_key, update_columns: twilioVerificationSid}
+  ) {
+    id
+  }
+}
+    `;
+export const CreateNewCustomerDocument = gql`
+    mutation CreateNewCustomer($phone: String!, $address: String!, $name: String!) {
+  insert_customers_one(
+    object: {phone: $phone, address: $address, name: $name}
+    on_conflict: {constraint: customers_phone_key}
   ) {
     id
   }
@@ -3085,8 +3177,11 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     GetCustomerByPhone(variables: GetCustomerByPhoneQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetCustomerByPhoneQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<GetCustomerByPhoneQuery>(GetCustomerByPhoneDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'GetCustomerByPhone', 'query');
     },
-    CreateNewUser(variables: CreateNewUserMutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<CreateNewUserMutation> {
-      return withWrapper((wrappedRequestHeaders) => client.request<CreateNewUserMutation>(CreateNewUserDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'CreateNewUser', 'mutation');
+    RegisterNewCustomer(variables: RegisterNewCustomerMutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<RegisterNewCustomerMutation> {
+      return withWrapper((wrappedRequestHeaders) => client.request<RegisterNewCustomerMutation>(RegisterNewCustomerDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'RegisterNewCustomer', 'mutation');
+    },
+    CreateNewCustomer(variables: CreateNewCustomerMutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<CreateNewCustomerMutation> {
+      return withWrapper((wrappedRequestHeaders) => client.request<CreateNewCustomerMutation>(CreateNewCustomerDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'CreateNewCustomer', 'mutation');
     },
     GetMenuItemsGroupedByCategoryId(variables: GetMenuItemsGroupedByCategoryIdQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetMenuItemsGroupedByCategoryIdQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<GetMenuItemsGroupedByCategoryIdQuery>(GetMenuItemsGroupedByCategoryIdDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'GetMenuItemsGroupedByCategoryId', 'query');

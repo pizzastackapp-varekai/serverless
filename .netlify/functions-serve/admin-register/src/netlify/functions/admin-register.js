@@ -30842,11 +30842,21 @@ var GetCustomerByPhoneDocument = import_graphql_tag.default`
   }
 }
     `;
-var CreateNewUserDocument = import_graphql_tag.default`
-    mutation CreateNewUser($phone: String!, $twilioVerificationSid: String!) {
+var RegisterNewCustomerDocument = import_graphql_tag.default`
+    mutation RegisterNewCustomer($phone: String!, $twilioVerificationSid: String!) {
   insert_customers_one(
     object: {twilioVerificationSid: $twilioVerificationSid, phone: $phone}
     on_conflict: {constraint: customers_phone_key, update_columns: twilioVerificationSid}
+  ) {
+    id
+  }
+}
+    `;
+var CreateNewCustomerDocument = import_graphql_tag.default`
+    mutation CreateNewCustomer($phone: String!, $address: String!, $name: String!) {
+  insert_customers_one(
+    object: {phone: $phone, address: $address, name: $name}
+    on_conflict: {constraint: customers_phone_key}
   ) {
     id
   }
@@ -30896,8 +30906,11 @@ function getSdk(client, withWrapper = defaultWrapper) {
     GetCustomerByPhone(variables, requestHeaders) {
       return withWrapper((wrappedRequestHeaders) => client.request(GetCustomerByPhoneDocument, variables, __spreadValues(__spreadValues({}, requestHeaders), wrappedRequestHeaders)), "GetCustomerByPhone", "query");
     },
-    CreateNewUser(variables, requestHeaders) {
-      return withWrapper((wrappedRequestHeaders) => client.request(CreateNewUserDocument, variables, __spreadValues(__spreadValues({}, requestHeaders), wrappedRequestHeaders)), "CreateNewUser", "mutation");
+    RegisterNewCustomer(variables, requestHeaders) {
+      return withWrapper((wrappedRequestHeaders) => client.request(RegisterNewCustomerDocument, variables, __spreadValues(__spreadValues({}, requestHeaders), wrappedRequestHeaders)), "RegisterNewCustomer", "mutation");
+    },
+    CreateNewCustomer(variables, requestHeaders) {
+      return withWrapper((wrappedRequestHeaders) => client.request(CreateNewCustomerDocument, variables, __spreadValues(__spreadValues({}, requestHeaders), wrappedRequestHeaders)), "CreateNewCustomer", "mutation");
     },
     GetMenuItemsGroupedByCategoryId(variables, requestHeaders) {
       return withWrapper((wrappedRequestHeaders) => client.request(GetMenuItemsGroupedByCategoryIdDocument, variables, __spreadValues(__spreadValues({}, requestHeaders), wrappedRequestHeaders)), "GetMenuItemsGroupedByCategoryId", "query");

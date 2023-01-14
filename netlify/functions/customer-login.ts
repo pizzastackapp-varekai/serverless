@@ -14,7 +14,7 @@ const handler: Handler = async (event, context) => {
 	try {
 		verifyHasura(headers)
 	} catch (error) {
-		return JSON.parse(body)
+		return JSON.parse(error.message)
 	}
 
 	const input: CustomerLoginInput = JSON.parse(body).input.input
@@ -30,7 +30,7 @@ const handler: Handler = async (event, context) => {
 		.services(config.twilioServiceSid)
 		.verifications.create({ to: phoneNumber, channel: 'sms' })
 
-	await api.CreateNewUser(
+	await api.RegisterNewCustomer(
 		{
 			phone: phoneNumber,
 			twilioVerificationSid: verification.sid,
