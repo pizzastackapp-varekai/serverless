@@ -19176,7 +19176,7 @@ var require_tslib = __commonJS({
         function step(op) {
           if (f)
             throw new TypeError("Generator is already executing.");
-          while (g && (g = 0, op[0] && (_ = 0)), _)
+          while (_)
             try {
               if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done)
                 return t;
@@ -30881,8 +30881,17 @@ var CreateFakeOrderDocument = import_graphql_tag.default`
   }
 }
     `;
-var AddItemsToFakeOrderDocument = import_graphql_tag.default`
-    mutation AddItemsToFakeOrder($objects: [orders_menu_insert_input!]!) {
+var CreateOrderDocument = import_graphql_tag.default`
+    mutation CreateOrder($client_address: String!, $client_name: String!, $client_phone: String!, $comment: String = "", $payment_type: payment_types_enum = CASH) {
+  insert_orders_one(
+    object: {client_address: $client_address, client_name: $client_name, client_phone: $client_phone, comment: $comment, payment_type: $payment_type, status: NEW}
+  ) {
+    id
+  }
+}
+    `;
+var AddItemsToOrderDocument = import_graphql_tag.default`
+    mutation AddItemsToOrder($objects: [orders_menu_insert_input!]!) {
   insert_orders_menu(objects: $objects) {
     affected_rows
   }
@@ -30918,14 +30927,21 @@ function getSdk(client, withWrapper = defaultWrapper) {
     CreateFakeOrder(variables, requestHeaders) {
       return withWrapper((wrappedRequestHeaders) => client.request(CreateFakeOrderDocument, variables, __spreadValues(__spreadValues({}, requestHeaders), wrappedRequestHeaders)), "CreateFakeOrder", "mutation");
     },
-    AddItemsToFakeOrder(variables, requestHeaders) {
-      return withWrapper((wrappedRequestHeaders) => client.request(AddItemsToFakeOrderDocument, variables, __spreadValues(__spreadValues({}, requestHeaders), wrappedRequestHeaders)), "AddItemsToFakeOrder", "mutation");
+    CreateOrder(variables, requestHeaders) {
+      return withWrapper((wrappedRequestHeaders) => client.request(CreateOrderDocument, variables, __spreadValues(__spreadValues({}, requestHeaders), wrappedRequestHeaders)), "CreateOrder", "mutation");
+    },
+    AddItemsToOrder(variables, requestHeaders) {
+      return withWrapper((wrappedRequestHeaders) => client.request(AddItemsToOrderDocument, variables, __spreadValues(__spreadValues({}, requestHeaders), wrappedRequestHeaders)), "AddItemsToOrder", "mutation");
     }
   };
 }
 
 // netlify/common/api.ts
-var api = getSdk(new import_graphql_request.GraphQLClient(config.hasuraEndpoint));
+var api = getSdk(new import_graphql_request.GraphQLClient(config.hasuraEndpoint, {
+  headers: {
+    "x-hasura-admin-secret": config.hasuraAdminSecret
+  }
+}));
 
 // netlify/functions/admin-login.ts
 var invalidUserOrPassword = {
