@@ -17,3 +17,9 @@ query GetAdminById($id: uuid!) {
 		id
 	}
 }
+
+query GetAdmins {
+	admin {
+		id
+	}
+}

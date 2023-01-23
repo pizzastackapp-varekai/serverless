@@ -11,7 +11,11 @@ export const config = {
 	twilioAccountSid: process.env.TWILIO_ACCOUNT_SID,
 	twilioAuthToken: process.env.TWILIO_AUTH_TOKEN,
 	twilioServiceSid: process.env.TWILIO_SERVICE_SID,
+	//ONESIGNAL
+	onesignalApiKey: process.env.ONESIGNAL_API_KEY,
+	onesignalAppId: process.env.ONE_SIGNAL_APP_ID,
 	//MISC
 	jwtSecret: process.env.JWT_SECRET,
 	passwordSalt: process.env.PASSWORD_SALT,
+	adminFrontendUrl: process.env.ADMIN_FRONTEND_URL,
 }

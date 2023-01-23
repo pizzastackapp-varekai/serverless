@@ -1,8 +1,8 @@
 import { Handler } from '@netlify/functions'
-import { api } from '../common/api'
 import { verifyHasura } from '../common/verifyHasura'
-import { config } from '../core/config'
 import { HasuraEventBody, HasuraEvents } from '../dto/hasura-event-body.dto'
+import { CreateNewCustomer } from '../hasura/create-new-customer'
+import { sendNotificationToAdmin } from '../hasura/send-notification-to-admin'
 
 const handler: Handler = async (event, context) => {
 	const { headers, body: bodyRaw } = event
@@ -18,23 +18,8 @@ const handler: Handler = async (event, context) => {
 		trigger: { name: triggerName },
 	} = body
 
-	if (triggerName === HasuraEvents.CREATE_USER_AFTER_ORDER_SUBMITTED) {
-		const {
-			event: {
-				data: { new: order },
-			},
-		} = body
-
-		api.CreateNewCustomer(
-			{
-				phone: order.client_phone,
-				name: order.client_name,
-				address: order.client_address,
-			},
-			{
-				'x-hasura-admin-secret': config.hasuraAdminSecret,
-			}
-		)
+	if (triggerName === HasuraEvents.ORDER_CREATED) {
+		await Promise.all([CreateNewCustomer(body), sendNotificationToAdmin(body)])
 	}
 
 	return {

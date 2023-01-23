@@ -30772,8 +30772,11 @@ var config = {
   twilioAccountSid: process.env.TWILIO_ACCOUNT_SID,
   twilioAuthToken: process.env.TWILIO_AUTH_TOKEN,
   twilioServiceSid: process.env.TWILIO_SERVICE_SID,
+  onesignalApiKey: process.env.ONESIGNAL_API_KEY,
+  onesignalAppId: process.env.ONE_SIGNAL_APP_ID,
   jwtSecret: process.env.JWT_SECRET,
-  passwordSalt: process.env.PASSWORD_SALT
+  passwordSalt: process.env.PASSWORD_SALT,
+  adminFrontendUrl: process.env.ADMIN_FRONTEND_URL
 };
 
 // netlify/common/password.ts
@@ -30827,6 +30830,13 @@ var GetAdminByIdDocument = import_graphql_tag.default`
   }
 }
     `;
+var GetAdminsDocument = import_graphql_tag.default`
+    query GetAdmins {
+  admin {
+    id
+  }
+}
+    `;
 var GetCategoriesDocument = import_graphql_tag.default`
     query GetCategories {
   categories {
@@ -30875,7 +30885,7 @@ var GetMenuItemsGroupedByCategoryIdDocument = import_graphql_tag.default`
 var CreateFakeOrderDocument = import_graphql_tag.default`
     mutation CreateFakeOrder($client_address: String!, $client_name: String!, $client_phone: String!, $created_at: timestamptz, $comment: String!, $payment_type: payment_types_enum!) {
   insert_orders_one(
-    object: {client_address: $client_address, client_name: $client_name, client_phone: $client_phone, status: DELIVERED, created_at: $created_at, comment: $comment, payment_type: $payment_type}
+    object: {client_address: $client_address, client_name: $client_name, client_phone: $client_phone, status: NEW, created_at: $created_at, comment: $comment, payment_type: $payment_type}
   ) {
     id
   }
@@ -30908,6 +30918,9 @@ function getSdk(client, withWrapper = defaultWrapper) {
     },
     GetAdminById(variables, requestHeaders) {
       return withWrapper((wrappedRequestHeaders) => client.request(GetAdminByIdDocument, variables, __spreadValues(__spreadValues({}, requestHeaders), wrappedRequestHeaders)), "GetAdminById", "query");
+    },
+    GetAdmins(variables, requestHeaders) {
+      return withWrapper((wrappedRequestHeaders) => client.request(GetAdminsDocument, variables, __spreadValues(__spreadValues({}, requestHeaders), wrappedRequestHeaders)), "GetAdmins", "query");
     },
     GetCategories(variables, requestHeaders) {
       return withWrapper((wrappedRequestHeaders) => client.request(GetCategoriesDocument, variables, __spreadValues(__spreadValues({}, requestHeaders), wrappedRequestHeaders)), "GetCategories", "query");

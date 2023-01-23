@@ -3158,6 +3158,11 @@ export type GetAdminByIdQueryVariables = Exact<{
 
 export type GetAdminByIdQuery = { __typename?: 'query_root', admin_by_pk?: { __typename?: 'admin', username: string, id: any } | null };
 
+export type GetAdminsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetAdminsQuery = { __typename?: 'query_root', admin: Array<{ __typename?: 'admin', id: any }> };
+
 export type GetCategoriesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -3249,6 +3254,13 @@ export const GetAdminByIdDocument = gql`
   }
 }
     `;
+export const GetAdminsDocument = gql`
+    query GetAdmins {
+  admin {
+    id
+  }
+}
+    `;
 export const GetCategoriesDocument = gql`
     query GetCategories {
   categories {
@@ -3297,7 +3309,7 @@ export const GetMenuItemsGroupedByCategoryIdDocument = gql`
 export const CreateFakeOrderDocument = gql`
     mutation CreateFakeOrder($client_address: String!, $client_name: String!, $client_phone: String!, $created_at: timestamptz, $comment: String!, $payment_type: payment_types_enum!) {
   insert_orders_one(
-    object: {client_address: $client_address, client_name: $client_name, client_phone: $client_phone, status: DELIVERED, created_at: $created_at, comment: $comment, payment_type: $payment_type}
+    object: {client_address: $client_address, client_name: $client_name, client_phone: $client_phone, status: NEW, created_at: $created_at, comment: $comment, payment_type: $payment_type}
   ) {
     id
   }
@@ -3335,6 +3347,9 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     },
     GetAdminById(variables: GetAdminByIdQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetAdminByIdQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<GetAdminByIdQuery>(GetAdminByIdDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'GetAdminById', 'query');
+    },
+    GetAdmins(variables?: GetAdminsQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetAdminsQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<GetAdminsQuery>(GetAdminsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'GetAdmins', 'query');
     },
     GetCategories(variables?: GetCategoriesQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetCategoriesQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<GetCategoriesQuery>(GetCategoriesDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'GetCategories', 'query');
